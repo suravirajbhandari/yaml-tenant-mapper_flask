@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rx</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <h1 class="heading-primary">Rx Check</h1>
+    <div>
+        <div>
+            <table id="data-table" class="display"></table>
+        </div>
+        <a href="/"><button class="button">Back</button></a>
+    </div>
+    <script>
+        function populateDataTable(data) {
+            $('#data-table').DataTable({
+                data: data,
+                columns: Object.keys(data[0]).map(col => ({ data: col, title: col })),
+                scrollX: true
+            });
+        }
+        var js_data = {{ rx_data | safe }};
+        populateDataTable(js_data);
+    </script>
+</body>
+</html>

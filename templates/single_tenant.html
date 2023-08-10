@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ tenant_id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+</head>
+<body>
+    <h1 class="heading-primary">{{ tenant_id }}</h1>
+
+    <div>
+        <h2 class="heading-secondary"> Elig Check </h2>
+        <div>
+            <table id="elig-table"></table>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="heading-secondary"> Med Check </h2>
+        <div>
+            <table id="med-table"></table>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="heading-secondary"> Rx Check </h2>
+        <div>
+            <table id="rx-table"></table>
+        </div>
+    </div>
+
+    <a href="/"><button class="button">Back</button></a>
+
+    <script>
+        function populateDataTable(data) {
+            $('#elig-table').DataTable({
+                data: data,
+                columns: Object.keys(data[0]).map(col => ({ data: col, title: col })),
+                scrollX: true
+            });
+        }
+        var js_data1 = {{ elig_data | safe }};
+        // Call the functions to populate the DataTable and create the bar plot
+        populateDataTable(js_data1); // Use the Pandas dataframe directly
+    </script>
+
+    <script>
+        function populateDataTable(data) {
+            $('#med-table').DataTable({
+                data: data,
+                columns: Object.keys(data[0]).map(col => ({ data: col, title: col })),
+                scrollX: true
+            });
+        }
+        var js_data2 = {{ med_data | safe }};
+        // Call the functions to populate the DataTable and create the bar plot
+        populateDataTable(js_data2); // Use the Pandas dataframe directly
+    </script>
+
+    <script>
+        function populateDataTable(data) {
+            $('#rx-table').DataTable({
+                data: data,
+                columns: Object.keys(data[0]).map(col => ({ data: col, title: col })),
+                scrollX: true
+            });
+        }
+        var js_data3 = {{ rx_data | safe }};
+        // Call the functions to populate the DataTable and create the bar plot
+        populateDataTable(js_data3); // Use the Pandas dataframe directly
+    </script>
+
+
+</body>
+</html>
